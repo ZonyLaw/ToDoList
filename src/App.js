@@ -2,7 +2,8 @@
 
 import './App.css';
 import {useState} from 'react';
-import Item from './item';
+
+
 
 
 
@@ -10,12 +11,12 @@ function App() {
 
   const [tasks, setTasks] = useState([])
   const [item, setItem] = useState({})
-  const [toggle, setToggle] = useState(false)
+ 
 
 
   const handleSubmit = (event) =>{
     event.preventDefault();
-    setTasks((prev) => [...prev, item.text])
+    setTasks((prev) => [...prev, item])
         
   }
   
@@ -26,7 +27,22 @@ function App() {
   
   }
 
+  const handleToggle = (tasks, task) => {
+    setTasks(tasks.map((t) => (
+      (t.text === task.text) ? {...t, toggle: t.toggle===false} : t
+    )));
+
+    console.log(tasks)
+  }
+
  
+  const handleDelete = (task) => {
+    // console.log(tasks)
+          
+    const newt = tasks.filter((t)=> t !== task )
+   
+    setTasks(newt)
+  }
 
   return (
     <div className="App">
@@ -38,8 +54,16 @@ function App() {
 
 
       <ul>
-      {tasks.map((task, index) => 
-          <Item id={index} task={task} tasks = {tasks} setTasks={setTasks}/>
+      {tasks.map((task) => (
+        <div>
+       
+          <li className={task.toggle ? 'toggleGreyColor' : 'toggleBlackColor'}>{task.text}</li> 
+          <button onClick={() => handleToggle(tasks, task)} >toggle</button> 
+          <button onClick={() => handleDelete(task)}>delete</button>
+
+        </div>)
+
+         
       )}
       </ul>
     

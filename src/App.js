@@ -1,43 +1,47 @@
 // https://www.google.com/search?q=reducer+explained+youtube&oq=reducer+explained+youtube&aqs=chrome..69i57j33i10i160.7079j0j7&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:4ddc25a1,vid:kK_Wqx3RnHk
 
 import './App.css';
-import {useReducer} from 'react';
+import {useState} from 'react';
+import Item from './item';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'increment':
-      return {count: state.count + 1}
-    case 'decrement':
-      return {count: state.count - 1}
-    default:
-      return state
-  }
-
-}
 
 
 function App() {
 
-  const [state, dispatch] = useReducer(reducer, {count: 0});
-  
+  const [tasks, setTasks] = useState([])
+  const [item, setItem] = useState({})
+  const [toggle, setToggle] = useState(false)
 
-  const increment = () => {
-    dispatch({type: 'increment'});
+
+  const handleSubmit = (event) =>{
+    event.preventDefault();
+    setTasks((prev) => [...prev, item.text])
+        
   }
   
-  const decrement = () => {
-    dispatch({type: 'decrement'});
+  
+  const handleChange = (e) => {
+    setItem({toggle: false, text: e.target.value})
+    console.log(item)
+  
   }
+
+ 
+
   return (
     <div className="App">
+      <form>
+        <label for="taskInput">Enter a task:</label>
+        <input type="text" for="taskInput" onChange={handleChange} />
+        <button onClick={handleSubmit}>Add</button>
+      </form>
 
-        <p> 
-      <button onClick={increment}>+</button>
-        {state.count}
-      <button onClick={decrement}>-</button>
-        
-        </p>
-        
+
+      <ul>
+      {tasks.map((task, index) => 
+          <Item id={index} task={task} tasks = {tasks} setTasks={setTasks}/>
+      )}
+      </ul>
     
     </div>
   );

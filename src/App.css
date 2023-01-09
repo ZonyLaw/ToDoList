@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-size: 30px;
 
 }
 
@@ -41,4 +42,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+
+.toggleGreyColor{
+  color: grey;
+
+}
+
+.toggleBlackColor{
+  color: Black;
+
 }

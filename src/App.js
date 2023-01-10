@@ -5,6 +5,7 @@ import {useReducer} from 'react';
 
 const reducer = (state, action) =>{
 
+
 }
 
 // const reducer = (state, action) => {
@@ -23,16 +24,21 @@ const reducer = (state, action) =>{
 function App() {
   const [state, dispatch] = useReducer(reducer, {text: ''})
  
-  
+  const handleChnage = ()=>{
+    dispatch()
+  }
 
+  const handleClick = () => {
+    dispatch()
+  }
  
   return (
     <div className="App">
 
         <form type='submit'>
           <lable>Enter a task</lable>
-          <input placeholder="Enter task"/>
-          <button>Add</button>
+          <input onChange={handleChnage} placeholder="Enter task"/>
+          <button onClick={handleClick}>Add</button>
         </form>
         
     
